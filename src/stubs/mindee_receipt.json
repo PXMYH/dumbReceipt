@@ -1,0 +1,197 @@
+{
+  "api_request": {
+    "error": {},
+    "resources": ["document"],
+    "status": "success",
+    "status_code": 201,
+    "url": "https://api.mindee.net/v1/products/mindee/expense_receipts/v3/predict"
+  },
+  "document": {
+    "id": "62313e83-7950-43d4-a8ad-e9d91d010b22",
+    "inference": {
+      "extras": {},
+      "finished_at": "2022-10-04T05:41:53+00:00",
+      "is_rotation_applied": "True",
+      "pages": [
+        {
+          "extras": {},
+          "id": 0,
+          "orientation": {
+            "value": 0
+          },
+          "prediction": {
+            "category": {
+              "confidence": 0.96,
+              "value": "miscellaneous"
+            },
+            "date": {
+              "confidence": 0.44,
+              "polygon": [
+                [0.402, 0.527],
+                [0.568, 0.527],
+                [0.568, 0.546],
+                [0.402, 0.546]
+              ],
+              "raw": "None",
+              "value": "None"
+            },
+            "locale": {
+              "confidence": 0.9,
+              "country": "CA",
+              "currency": "CAD",
+              "language": "en",
+              "value": "en-CA"
+            },
+            "orientation": {
+              "confidence": 0.99,
+              "degrees": 0
+            },
+            "supplier": {
+              "confidence": 0.86,
+              "polygon": [
+                [0.144, 0.066],
+                [0.842, 0.066],
+                [0.842, 0.115],
+                [0.144, 0.115]
+              ],
+              "value": "DOLLARAMA"
+            },
+            "taxes": [
+              {
+                "code": "HST",
+                "confidence": 0.37,
+                "polygon": [
+                  [0.036, 0.281],
+                  [0.879, 0.281],
+                  [0.879, 0.306],
+                  [0.036, 0.306]
+                ],
+                "rate": 13.0,
+                "value": 0.02
+              }
+            ],
+            "time": {
+              "confidence": 0.99,
+              "polygon": [
+                [0.302, 0.897],
+                [0.47, 0.897],
+                [0.47, 0.915],
+                [0.302, 0.915]
+              ],
+              "raw": "18:50",
+              "value": "18:50"
+            },
+            "total_incl": {
+              "confidence": 0.99,
+              "polygon": [
+                [0.704, 0.472],
+                [0.787, 0.472],
+                [0.787, 0.489],
+                [0.704, 0.489]
+              ],
+              "value": 3.67
+            }
+          }
+        }
+      ],
+      "prediction": {
+        "category": {
+          "confidence": 0.96,
+          "value": "miscellaneous"
+        },
+        "date": {
+          "confidence": 0.44,
+          "page_id": 0,
+          "polygon": [
+            [0.402, 0.527],
+            [0.568, 0.527],
+            [0.568, 0.546],
+            [0.402, 0.546]
+          ],
+          "raw": "None",
+          "value": "None"
+        },
+        "locale": {
+          "confidence": 0.9,
+          "country": "CA",
+          "currency": "CAD",
+          "language": "en",
+          "value": "en-CA"
+        },
+        "supplier": {
+          "confidence": 0.86,
+          "page_id": 0,
+          "polygon": [
+            [0.144, 0.066],
+            [0.842, 0.066],
+            [0.842, 0.115],
+            [0.144, 0.115]
+          ],
+          "value": "DOLLARAMA"
+        },
+        "taxes": [
+          {
+            "code": "HST",
+            "confidence": 0.37,
+            "page_id": 0,
+            "polygon": [
+              [0.036, 0.281],
+              [0.879, 0.281],
+              [0.879, 0.306],
+              [0.036, 0.306]
+            ],
+            "rate": 13.0,
+            "value": 0.02
+          }
+        ],
+        "time": {
+          "confidence": 0.99,
+          "page_id": 0,
+          "polygon": [
+            [0.302, 0.897],
+            [0.47, 0.897],
+            [0.47, 0.915],
+            [0.302, 0.915]
+          ],
+          "raw": "18:50",
+          "value": "18:50"
+        },
+        "total_incl": {
+          "confidence": 0.99,
+          "page_id": 0,
+          "polygon": [
+            [0.704, 0.472],
+            [0.787, 0.472],
+            [0.787, 0.489],
+            [0.704, 0.489]
+          ],
+          "value": 3.67
+        }
+      },
+      "processing_time": 0.778,
+      "product": {
+        "features": [
+          "locale",
+          "category",
+          "date",
+          "time",
+          "total_incl",
+          "taxes",
+          "supplier",
+          "orientation"
+        ],
+        "name": "mindee/expense_receipts",
+        "type": "standard",
+        "version": "3.1"
+      },
+      "started_at": "2022-10-04T05:41:53+00:00"
+    },
+    "n_pages": 1,
+    "name": "1.jpg"
+  },
+  "document_type": "receipt",
+  "input_type": "path",
+  "filename": "1.jpg",
+  "filepath": "./data/1.jpg",
+  "file_extension": "image/jpeg"
+}

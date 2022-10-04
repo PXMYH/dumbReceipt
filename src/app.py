@@ -15,7 +15,7 @@ def main():
 
         # start the receipt processing engine
         receiptEngine.run()
-        return "<div />"
+        return "<div>Success!</div>"
 
     finally:
         # close the app if necessary
