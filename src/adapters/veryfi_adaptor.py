@@ -1,10 +1,11 @@
 from veryfi import Client
+import os
 
 def veryfi_adaptor():
-    client_id = 'vrf15ZdGoEPHl42p3oBoRruJe5ruTnrUiKXawYz'
-    client_secret = 'ikZ0POOxZi9LfTjGkm3wp2lV1uNGDK3PRfp21J27IcIhs3frjwKHzO8BxKnx05HlunXLelljEiknnO59axdSHhhuCXN945KsTFIsB951SF0K3jzewRNRwZHOSyLAEZmm'
-    username = 'pxmyhdev'
-    api_key = '5de47e916c47c26cd51d15f694a19af9'
+    client_id = os.getenv('VERYFI_CLIENT_ID')
+    client_secret = os.getenv('VERYFI_CLIENT_SECRET')
+    username = os.getenv('VERYFI_USERNAME')
+    api_key = os.getenv('VERYFI_API_KEY')
 
     # categories = ['Grocery', 'Utilities', 'Travel']
     file_path = './data/broken.jpg'
