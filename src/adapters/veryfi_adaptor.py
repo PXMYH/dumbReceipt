@@ -14,3 +14,11 @@ def veryfi_adaptor():
     veryfi_client = Client(client_id, client_secret, username, api_key)
     response = veryfi_client.process_document(file_path)
     print("response from veryfi: ", response)
+
+    items = []
+    line_items = response['line_items']
+    for item in line_items:
+        print(f"item = {item}")
+        item_description = item['description']
+        items.append(item_description)
+    return items
