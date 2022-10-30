@@ -8,6 +8,8 @@ requests = "*"
 flask = "*"
 mindee = "*"
 veryfi = "*"
+flask-sqlalchemy = "*"
+werkzeug = "*"
 
 [dev-packages]
 
