@@ -11,9 +11,11 @@ class Receipt:
         read in receipt and ocr
         for now supports ingest receipt one by one, support for batch import is planned in the future
         """
+        print("running ingesting engine ...")
+
         load()
-        recognize()
-        print("ingesting engine ...")
+        result = recognize()
+        return result
 
     def run(self):
         # categorize_receipt()
