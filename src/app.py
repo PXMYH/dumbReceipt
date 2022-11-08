@@ -47,6 +47,9 @@ def uploader():
             flash("No selected file")
             return redirect(request.url)
 
+        # remove existing receipts
+        [os.remove(f) for f in os.listdir()]
+
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config["UPLOAD_FOLDER"], filename))
