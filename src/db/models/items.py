@@ -11,7 +11,7 @@ class Items(db.Model):
     quantity = db.Column(db.Integer)
     price = db.Column(db.Float, nullable=False)
     vendor = db.Column(db.String, nullable=False)
-    created_at = db.Column(db.DateTime(timezone=True), server_default=func.now())
+    createdAt = db.Column(db.DateTime(timezone=True), server_default=func.now())
 
     def __init__(self, name, quantity, price, vendor):
         self.name = name
@@ -20,4 +20,4 @@ class Items(db.Model):
         self.vendor = vendor
 
     def __repr__(self):
-        return f"<{self.quantity} item(s) {self.name} purchased at {self.price} from {self.vendor}>"
+        return f"<{self.quantity} item(s) {self.name} purchased at {self.price} from {self.vendor} happened at {self.createdAt}>"
