@@ -1,0 +1,10 @@
+DROP TABLE IF EXISTS items;
+
+CREATE TABLE items (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name NOT NULL TEXT,
+    price REAL,
+    quantity INTEGER,
+    vendor TEXT,
+    createdAt DATETIME DEFAULT CURRENT_TIMESTAMP
+)
