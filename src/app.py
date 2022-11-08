@@ -1,15 +1,24 @@
 import os
 from flask import Flask, flash, render_template, request, redirect, url_for
 from werkzeug.utils import secure_filename
+from db.db_instance import db
 from db.connect import connect_database
 from controllers import Receipt
 
+# TODO: move this to config file
 UPLOAD_FOLDER = "./uploads/receipts"
 ALLOWED_EXTENSIONS = {"txt", "pdf", "png", "jpg", "jpeg", "gif"}
+DB_NAME = "receipt.db"
 
 app = Flask(__name__)
-app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
+# app configurations, need to be before app is initialized
+app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///" + DB_NAME
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
+
+db.init_app(app)
+db.app = app
 connect_database(app)
 
 
@@ -18,6 +27,7 @@ def allowed_file(filename):
 
 
 @app.route("/")
+# home page to load upload files page
 def upload_page():
     return render_template("upload.html")
 
