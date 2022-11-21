@@ -3,6 +3,7 @@ from flask import Flask, flash, render_template, request, redirect, url_for
 from werkzeug.utils import secure_filename
 from db.connect import connect_database
 from controllers import Receipt
+import configs.app_config as app_config
 
 UPLOAD_FOLDER = "./uploads/receipts"
 ALLOWED_EXTENSIONS = {"txt", "pdf", "png", "jpg", "jpeg", "gif"}
@@ -36,6 +37,15 @@ def uploader():
         if file.filename == "":
             flash("No selected file")
             return redirect(request.url)
+
+        # remove existing receipts
+        # RECEIPT_FILE_DIR = "./uploads/receipts"
+        print("removing previous receipt files...")
+        [
+            os.remove(app_config.RECEIPT_FILE_DIR + "/" + f)
+            for f in os.listdir(app_config.RECEIPT_FILE_DIR)
+            if not f.endswith(".gitkeep")
+        ]
 
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)

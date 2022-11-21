@@ -2,7 +2,7 @@ from veryfi import Client
 import os
 
 
-def veryfi_adaptor():
+def veryfi_adapter():
     client_id = os.getenv("VERYFI_CLIENT_ID")
     client_secret = os.getenv("VERYFI_CLIENT_SECRET")
     username = os.getenv("VERYFI_USERNAME")
@@ -10,7 +10,7 @@ def veryfi_adaptor():
 
     # categories = ['Grocery', 'Utilities', 'Travel']
     RECEIPT_FILE_DIR = "./uploads/receipts"
-    files = os.listdir(RECEIPT_FILE_DIR)
+    files = [file for file in os.listdir(RECEIPT_FILE_DIR) if not ".gitkeep" in file]
     print(f"files = {files}")
 
     # This submits document for processing (takes 3-5 seconds to get response)
