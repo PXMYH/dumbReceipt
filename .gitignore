@@ -130,3 +130,5 @@ dmypy.json
 
 # custom
 /src/data
+/src/uploads/receipts/*
+!/src/uploads/receipts/.gitkeep
