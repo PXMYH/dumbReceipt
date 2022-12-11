@@ -50,9 +50,10 @@ def veryfi_adapter():
         vendor_category = response["vendor"]["category"]
         vendor_type = response["vendor"]["type"]
 
+        # record field order
+        items.append(date)
         items.append(category)
         items.append(currency)
-        items.append(date)
         items.append(total)
         items.append(tax_amount)
         items.append(tax_name)
