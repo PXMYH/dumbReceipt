@@ -23,7 +23,7 @@ def veryfi_adapter():
         # uncomment below 4 lines to test with dummy data
         # import json
 
-        # with open("costco.json", "r") as f:
+        # with open("stubs/costco.json", "r") as f:
         #     response = json.load(f)
 
         item_metadata = []
