@@ -132,3 +132,5 @@ dmypy.json
 /src/data
 /src/uploads/receipts/*
 !/src/uploads/receipts/.gitkeep
+
+.DS_Store
