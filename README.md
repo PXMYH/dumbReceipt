@@ -9,4 +9,6 @@ To run the app
 cd src/
 export FLASK_DEBUG=1
 export FLASK_APP=app.py
+
+flask run
 ```
