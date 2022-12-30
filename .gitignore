@@ -129,8 +129,9 @@ dmypy.json
 .pyre/
 
 # custom
-/src/data
-/src/uploads/receipts/*
-!/src/uploads/receipts/.gitkeep
+/data
+/uploads/receipts/*
+!/uploads/receipts/.gitkeep
 
 .DS_Store
+*.csv
