@@ -9,14 +9,15 @@
   "short_name": "DR",
   "start_url": "/",
   "theme_color": "#ff7f50",
-  "categories": [],
+  "categories": ["finance", "utilities"],
   "screenshots": [],
   "icons": [
     {
-      "src": "https://github.com/PXMYH/dumbReceipt/blob/a89edc74a0f5262dc718353e738a5d3f717a4bb2/static/favicon.png",
+      "src": "https://iili.io/HTDYtLl.png",
       "sizes": "512x512",
       "purpose": "any"
     }
   ],
-  "shortcuts": []
+  "shortcuts": [],
+  "lang": "en"
 }
