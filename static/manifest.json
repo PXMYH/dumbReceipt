@@ -1,0 +1,16 @@
+{
+  "background_color": "#ffffff",
+  "description": "A smart receipt app to help you manage your daily expense and get insights on what you are spending on!",
+  "dir": "ltr",
+  "display": "standalone",
+  "name": "Dumb Receipt",
+  "orientation": "any",
+  "scope": "/",
+  "short_name": "DR",
+  "start_url": "/",
+  "theme_color": "#ff7f50",
+  "categories": [],
+  "screenshots": [],
+  "icons": [],
+  "shortcuts": []
+}
