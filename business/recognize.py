@@ -1,4 +1,4 @@
-from adapters.midee_adapter import mindee_adapter
+from adapters.mindee_adapter import mindee_adapter
 from adapters.veryfi_adapter import veryfi_adapter
 from db.csv import write_csv
 from db.models import Product, db
