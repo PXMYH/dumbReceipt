@@ -1,12 +1,28 @@
 <html>
   <head>
+    <title>Dumb Receipt</title>
     <link rel="manifest" href="/static/manifest.json" />
+    <style>
+      div {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+    </style>
   </head>
   <body>
-    <form action="/" method="POST" enctype="multipart/form-data">
-      <input type="file" name="file" />
-      <input type="submit" />
-    </form>
+    <div>
+      <h1>Dumb Receipt</h1>
+      <form action="/" method="POST" enctype="multipart/form-data">
+        <input type="file" name="file" />
+        <input type="submit" />
+      </form>
+    </div>
     <script>
       if (!navigator.serviceWorker.controller) {
         navigator.serviceWorker
