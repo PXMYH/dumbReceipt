@@ -1,5 +1,6 @@
 from veryfi import Client
 import os
+import configs.app_config as app_config
 
 
 def veryfi_adapter():
@@ -9,15 +10,17 @@ def veryfi_adapter():
     api_key = os.getenv("VERYFI_API_KEY")
 
     # categories = ['Grocery', 'Utilities', 'Travel']
-    RECEIPT_FILE_DIR = "./uploads/receipts"
-    files = [file for file in os.listdir(RECEIPT_FILE_DIR) if not ".gitkeep" in file]
+    current_dir = os.path.dirname(__file__)
+    receipt_dir = current_dir + "/../" + app_config.RECEIPT_FILE_DIR
+    print(f"veryfi receipt directory: {receipt_dir}")
+    files = [file for file in os.listdir(receipt_dir) if not ".gitkeep" in file]
     print(f"files = {files}")
 
     # This submits document for processing (takes 3-5 seconds to get response)
     veryfi_client = Client(client_id, client_secret, username, api_key)
     receipt_items = []
     for file in files:
-        response = veryfi_client.process_document(RECEIPT_FILE_DIR + "/" + file)
+        response = veryfi_client.process_document(receipt_dir + "/" + file)
         print("response from veryfi: ", response)
 
         # uncomment below 4 lines to test with dummy data

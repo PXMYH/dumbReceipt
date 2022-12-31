@@ -9,7 +9,6 @@ UPLOAD_FOLDER = "./uploads/receipts"
 ALLOWED_EXTENSIONS = {"txt", "pdf", "png", "jpg", "jpeg", "gif"}
 
 app = Flask(__name__)
-app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
 connect_database(app)
 
@@ -23,7 +22,7 @@ def upload_page():
     return render_template("upload.html")
 
 
-@app.route("/uploader", methods=["GET", "POST"])
+@app.route("/", methods=["GET", "POST"])
 def uploader():
     if request.method == "POST":
         # check if the post request has the file part
@@ -39,17 +38,19 @@ def uploader():
             return redirect(request.url)
 
         # remove existing receipts
-        # RECEIPT_FILE_DIR = "./uploads/receipts"
+        current_dir = os.path.dirname(__file__)
+        print(f"current directory: {current_dir}")
+        receipt_dir = current_dir + "/" + app_config.RECEIPT_FILE_DIR
         print("removing previous receipt files...")
         [
-            os.remove(app_config.RECEIPT_FILE_DIR + "/" + f)
-            for f in os.listdir(app_config.RECEIPT_FILE_DIR)
+            os.remove(receipt_dir + "/" + f)
+            for f in os.listdir(receipt_dir)
             if not f.endswith(".gitkeep")
         ]
 
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
-            file.save(os.path.join(app.config["UPLOAD_FOLDER"], filename))
+            file.save(os.path.join(receipt_dir, filename))
             # TODO: replace with saving the file to a remote storage
             # return redirect(url_for("upload_page", name=filename))
             return redirect(url_for("process", name=filename))
