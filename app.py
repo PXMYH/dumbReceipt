@@ -1,5 +1,13 @@
 import os
-from flask import Flask, flash, render_template, request, redirect, url_for
+from flask import (
+    Flask,
+    flash,
+    render_template,
+    request,
+    redirect,
+    url_for,
+    send_from_directory,
+)
 from werkzeug.utils import secure_filename
 from db.connect import connect_database
 from controllers import Receipt
@@ -11,10 +19,6 @@ ALLOWED_EXTENSIONS = {"txt", "pdf", "png", "jpg", "jpeg", "gif"}
 app = Flask(__name__)
 
 connect_database(app)
-
-
-def allowed_file(filename):
-    return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
 @app.route("/")
@@ -38,24 +42,35 @@ def uploader():
             return redirect(request.url)
 
         # remove existing receipts
-        current_dir = os.path.dirname(__file__)
-        print(f"current directory: {current_dir}")
-        receipt_dir = current_dir + "/" + app_config.RECEIPT_FILE_DIR
-        print("removing previous receipt files...")
+        receipt_dir = os.path.join(
+            os.path.dirname(__file__), app_config.RECEIPT_FILE_DIR
+        )
         [
-            os.remove(receipt_dir + "/" + f)
+            os.remove(os.path.join(receipt_dir, f))
             for f in os.listdir(receipt_dir)
             if not f.endswith(".gitkeep")
         ]
 
-        if file and allowed_file(file.filename):
+        if (
+            file
+            and secure_filename(file.filename)
+            and "." in file.filename
+            and file.filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
+        ):
             filename = secure_filename(file.filename)
             file.save(os.path.join(receipt_dir, filename))
-            # TODO: replace with saving the file to a remote storage
-            # return redirect(url_for("upload_page", name=filename))
             return redirect(url_for("process", name=filename))
 
-        return f"file {secure_filename(file.filename)} uploaded successfully"
+        flash("Invalid file type. Only txt, pdf, png, jpg, jpeg, and gif are allowed.")
+        return redirect(request.url)
+
+    return render_template("upload.html")
+
+
+@app.route("/uploads/receipts/<name>")
+def serve_uploaded_file(name):
+    receipt_dir = os.path.join(os.path.dirname(__file__), app_config.RECEIPT_FILE_DIR)
+    return send_from_directory(receipt_dir, name)
 
 
 @app.route("/process")
