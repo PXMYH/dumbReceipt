@@ -2,3 +2,4 @@
 
 OCR_ENGINE_SUPPLIER = "VERYFI"
 RECEIPT_FILE_DIR = "./uploads/receipts"
+DEBUG_ENABLED = True

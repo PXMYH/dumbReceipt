@@ -9,6 +9,8 @@ def veryfi_adapter():
     username = os.getenv("VERYFI_USERNAME")
     api_key = os.getenv("VERYFI_API_KEY")
 
+    isDebug = app_config.DEBUG_ENABLED
+
     # categories = ['Grocery', 'Utilities', 'Travel']
     current_dir = os.path.dirname(__file__)
     receipt_dir = current_dir + "/../" + app_config.RECEIPT_FILE_DIR
@@ -16,18 +18,22 @@ def veryfi_adapter():
     files = [file for file in os.listdir(receipt_dir) if not ".gitkeep" in file]
     print(f"files = {files}")
 
-    # This submits document for processing (takes 3-5 seconds to get response)
-    veryfi_client = Client(client_id, client_secret, username, api_key)
     receipt_items = []
     for file in files:
-        response = veryfi_client.process_document(receipt_dir + "/" + file)
-        print("response from veryfi: ", response)
+        if isDebug:
+            # debug mode enabled, use dummy file for response
+            import json
 
-        # uncomment below 4 lines to test with dummy data
-        # import json
-
-        # with open("stubs/costco.json", "r") as f:
-        #     response = json.load(f)
+            print(f"Sandbox mode, use dummy file for response.")
+            with open("stubs/costco.json", "r") as f:
+                response = json.load(f)
+        else:
+            # real mode enabled, use verify and count towards API usage
+            # This submits document for processing (takes 3-5 seconds to get response)
+            print(f"Execution mode, real API call is executed.")
+            veryfi_client = Client(client_id, client_secret, username, api_key)
+            response = veryfi_client.process_document(receipt_dir + "/" + file)
+            print("response from veryfi: ", response)
 
         item_metadata = []
 
