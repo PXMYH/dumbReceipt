@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Receipts</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="mt-4 mb-4">Receipts</h1>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Amount</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for receipt in receipts %}
+          <tr>
+            <td>{{ receipt.id }}</td>
+            <td>{{ receipt.name }}</td>
+            <td>{{ receipt.price }}</td>
+            <td>{{ receipt.created_at }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>

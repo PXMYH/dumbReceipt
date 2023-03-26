@@ -92,5 +92,14 @@ def process():
         receiptEngine.shutdown()
 
 
+@app.route("/receipts")
+def display_receipts():
+    # initialize receipt engine
+    receiptEngine = Receipt.Receipt()
+
+    receipts = receiptEngine.get_all_receipts()
+    return render_template("receipts.html", receipts=receipts)
+
+
 if __name__ == "__main__":
     app.run(debug=True, use_reloader=True)

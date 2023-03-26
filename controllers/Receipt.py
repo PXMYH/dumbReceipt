@@ -1,5 +1,6 @@
 from business.load import load
 from business.recognize import recognize
+from db.models import Product, db
 
 
 class Receipt:
@@ -23,3 +24,7 @@ class Receipt:
 
     def shutdown(self):
         print("closing receipt engine ...")
+
+    def get_all_receipts(self):
+        products = Product.query.all()
+        return products
