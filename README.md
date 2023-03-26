@@ -1,5 +1,7 @@
 # Dumb Receipt
 
+Dumb receipt aims to help classify the expense, and later extract the nutrition information to identify improvements to a healthier life style.
+
 ## Get Started
 
 ### Local Development

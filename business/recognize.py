@@ -1,4 +1,4 @@
-from adapters.mindee_adapter import mindee_adapter
+from adapters.mindee_adapter import MindeeAdapter
 from adapters.veryfi_adapter import VeryfiAdapter
 from db.csv import write_csv
 from db.models import Product, db
@@ -32,33 +32,37 @@ def convert_datetime(datetime_string):
 def recognize():
     print("recognizing ...")
 
-    if app_config.OCR_ENGINE_SUPPLIER != "VERYFI":  # TODO: move "VERYFI" as enum
-        mindee_adapter()
+    if app_config.OCR_ENGINE_SUPPLIER == "MINDEE":  # TODO: move "VERYFI" as enum
+        adapter = MindeeAdapter()
+        adapter.process_documents()
         return
 
-    adapter = VeryfiAdapter()
-    items = adapter.process_documents()
-    print(f"recognized items = {items}")
+    if app_config.OCR_ENGINE_SUPPLIER == "VERYFI":
+        adapter = VeryfiAdapter()
+        items = adapter.process_documents()
+        print(f"recognized items = {items}")
 
-    # verify items doesn't contain duplicates
-    items = remove_duplicates(items)
+        # verify items doesn't contain duplicates
+        items = remove_duplicates(items)
 
-    # write to csv file
-    write_csv(items)
+        # write to csv file
+        write_csv(items)
 
-    # write to database
-    products = []
-    for item in items:
-        product = Product(
-            name=item[-2],
-            quantity=item[-1],
-            price=item[3],
-            vendor=item[7],
-            created_at=convert_datetime(item[0]),
-        )
-        products.append(product)
+        # write to database
+        products = []
+        for item in items:
+            product = Product(
+                name=item[-2],
+                quantity=item[-1],
+                price=item[3],
+                vendor=item[7],
+                created_at=convert_datetime(item[0]),
+            )
+            products.append(product)
 
-    db.session.add_all(products)
-    db.session.commit()
+        db.session.add_all(products)
+        db.session.commit()
 
-    return items
+        return items
+
+    raise NotImplementedError("The specified adapter is not implemented yet.")

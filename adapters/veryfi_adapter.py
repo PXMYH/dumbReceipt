@@ -25,7 +25,7 @@ class VeryfiAdapter:
         else:
             # real mode enabled, use verify and count towards API usage
             # this submits document for processing (takes 3-5 seconds to get response)
-            self.veryfi_client = Client(
+            self.client = Client(
                 self.client_id, self.client_secret, self.username, self.api_key
             )
 
@@ -42,7 +42,7 @@ class VeryfiAdapter:
         for file in files:
             if not self.is_debug:
                 print(f"Execution mode, real API call is executed for {file}.")
-                response = self.veryfi_client.process_document(
+                response = self.client.process_document(
                     os.path.join(self.receipt_dir, file)
                 )
                 print("response from veryfi: ", response)
