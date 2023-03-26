@@ -22,6 +22,7 @@ def remove_duplicates(items):
     return new_records
 
 
+# convert datetime to a specific format
 def convert_datetime(datetime_string):
     datetime_format = "%Y-%m-%d %H:%M:%S"
     converted_datetime = datetime.strptime(datetime_string, datetime_format)
@@ -30,30 +31,38 @@ def convert_datetime(datetime_string):
 
 def recognize():
     print("recognizing ...")
+    print(f"engine ocr: {app_config.OCR_ENGINE_SUPPLIER}")
 
-    if app_config.OCR_ENGINE_SUPPLIER == "VERYFI":  # TODO: move "VERYFI" as enum
-        items = veryfi_adapter()
-        print(f"recognized items = {items}")
-
-        # verify items doesn't contain duplicates
-        items = remove_duplicates(items)
-
-        # write to csv file
-        write_csv(items)
-
-        # write to database
-        for item in items:
-            product = Product(
-                name=item[-2],
-                quantity=item[-1],
-                price=item[3],
-                vendor=item[7],
-                created_at=convert_datetime(item[0]),
-            )
-            # Add the product to the database, not efficient, should explore batch write
-            db.session.add(product)
-            db.session.commit()
-
-        return items
-    else:
+    if app_config.OCR_ENGINE_SUPPLIER != "VERYFI":  # TODO: move "VERYFI" as enum
+        print(
+            f"engine ocr is {app_config.OCR_ENGINE_SUPPLIER}, Adapters.VERYFI = {Adapters.VERYFI}. but the check failed"
+        )
+        print("Adapters.VERYFI = " + str(Adapters.VERYFI))
         mindee_adapter()
+        return
+
+    items = veryfi_adapter()
+    print(f"recognized items = {items}")
+
+    # verify items doesn't contain duplicates
+    items = remove_duplicates(items)
+
+    # write to csv file
+    write_csv(items)
+
+    # write to database
+    products = []
+    for item in items:
+        product = Product(
+            name=item[-2],
+            quantity=item[-1],
+            price=item[3],
+            vendor=item[7],
+            created_at=convert_datetime(item[0]),
+        )
+        products.append(product)
+
+    db.session.add_all(products)
+    db.session.commit()
+
+    return items
