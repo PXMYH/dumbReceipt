@@ -1,5 +1,5 @@
 from adapters.mindee_adapter import mindee_adapter
-from adapters.veryfi_adapter import veryfi_adapter
+from adapters.veryfi_adapter import VeryfiAdapter
 from db.csv import write_csv
 from db.models import Product, db
 from datetime import datetime
@@ -31,17 +31,13 @@ def convert_datetime(datetime_string):
 
 def recognize():
     print("recognizing ...")
-    print(f"engine ocr: {app_config.OCR_ENGINE_SUPPLIER}")
 
     if app_config.OCR_ENGINE_SUPPLIER != "VERYFI":  # TODO: move "VERYFI" as enum
-        print(
-            f"engine ocr is {app_config.OCR_ENGINE_SUPPLIER}, Adapters.VERYFI = {Adapters.VERYFI}. but the check failed"
-        )
-        print("Adapters.VERYFI = " + str(Adapters.VERYFI))
         mindee_adapter()
         return
 
-    items = veryfi_adapter()
+    adapter = VeryfiAdapter()
+    items = adapter.process_documents()
     print(f"recognized items = {items}")
 
     # verify items doesn't contain duplicates
